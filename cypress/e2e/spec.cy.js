@@ -17,5 +17,10 @@ describe('template spec', () => {
     cy.url().should('include', '/gems')
     cy.get('a[class*="MainNav-module-scss-module__Zci5Yq__link"]').contains('GEMS').should('be.visible')
   })
-  
+  it('Verify selected gem details are displayed when clicking a gem image', () => {
+    cy.visit('https://houseofceylora.com/gems');
+    cy.get('img[alt="Sapphire"]').click()
+    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
+    cy.contains('Heated Blue Sapphire').should('be.visible')
+  })
 })
