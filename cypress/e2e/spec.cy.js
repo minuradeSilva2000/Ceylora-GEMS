@@ -45,7 +45,32 @@ describe('template spec', () => {
 
 
   })
+  it('Verify selected gemstone image changes when clicking gallery images',()=>{
 
+    cy.visit('https://houseofceylora.com/gems');
+    cy.get('img[alt="Ruby"]').click()
+    cy.url().should('include', 'type=Ruby')
+    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
+    cy.contains('button','Cat\'s Eye').click()
+    cy.url().should('include', '/gems?type=Ruby&sub=CE', { timeout: 10000 })
+    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
+    cy.contains('button','Pink').should('be.visible').click()
+    cy.get('img[alt="No Treatment Cat\'s Eye"]').click()
+    cy.url().should('include', '/gems/no-treatment-cats-eye-21', { timeout: 10000 })
+    cy.get('img[class*="galleryMainImg"]').should('be.visible')
+    cy.get('img[class*="thumbMedia"]').should('have.length.at.least', 6)
+    cy.get('img[class*="galleryMainImg"]').invoke('attr', 'src').then((initialImage) => {
+      cy.get('img[class*="thumbMedia"]').eq(1).click()
+      cy.get('img[class*="thumbMedia"]').eq(2).click()
+      cy.get('img[class*="thumbMedia"]').eq(3).click()
+      cy.get('img[class*="thumbMedia"]').eq(4).click()
+      cy.get('img[class*="thumbMedia"]').eq(5).click()
+      cy.get('img[class*="galleryMainImg"]').invoke('attr', 'src').should((updatedImage) => {
+          expect(updatedImage).not.to.eq(initialImage);
+        });
+
+    });
+  })
 
   
 })
