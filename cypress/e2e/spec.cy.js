@@ -17,10 +17,23 @@ describe('template spec', () => {
     cy.url().should('include', '/gems')
     cy.get('a[class*="MainNav-module-scss-module__Zci5Yq__link"]').contains('GEMS').should('be.visible')
   })
-  it('Verify selected gem details are displayed when clicking a gem image', () => {
+
+  it('Verify Sapphire gemstone details are displayed after clicking the Sapphire image', () => {
     cy.visit('https://houseofceylora.com/gems');
     cy.get('img[alt="Sapphire"]').click()
     cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
     cy.contains('Heated Blue Sapphire').should('be.visible')
   })
+  it('Verify navigation to the Heated Ruby details page when clicking the Heated Ruby gem image', () => {
+    cy.visit('https://houseofceylora.com/gems');
+    cy.get('img[alt="Heated Ruby"]').click()
+    cy.url().should('include', '/gems/heated-ruby', { timeout: 10000 })
+    cy.get('h1').contains('Heated Ruby').should('be.visible')
+    
+  })
+  
+
+
+
+  
 })
