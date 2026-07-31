@@ -71,6 +71,15 @@ describe('template spec', () => {
 
     });
   })
+  it('Verify users are navigated back to the Gems listing page when clicking the Back icon',()=>{
+    cy.visit('https://houseofceylora.com/gems');
+    cy.get('img[alt="Unheated Chrysoberyl"]').click()
+    cy.url().should('include','/gems/unheated-chrysoberyl-19', { timeout: 10000 })
+    cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
+    cy.get('a[class="GemDetail-module-scss-module__23wXQa__backLink"]').click()
+    cy.url().should('include','/gems',{ timeout: 10000 })
+     
+  })
 
   
 })
