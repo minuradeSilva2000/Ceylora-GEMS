@@ -32,7 +32,19 @@ describe('template spec', () => {
     
   })
   
+ it('verify select the ruby gem and click catEye subcategory',()=>{
+    cy.visit('https://houseofceylora.com/gems');
+    cy.get('img[alt="Ruby"]').click()
+    cy.url().should('include', 'type=Ruby')
+    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
+    cy.contains('button','Cat\'s Eye').click()
+    cy.url().should('include', '/gems?type=Ruby&sub=CE', { timeout: 10000 })
+    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
+    cy.contains('button','Cat\'s Eye').should('be.visible')
+    cy.contains('button','Pink').should('be.visible').click()
 
+
+  })
 
 
   
