@@ -80,6 +80,22 @@ describe('template spec', () => {
     cy.url().should('include','/gems',{ timeout: 10000 })
      
   })
+  it('Verify the Natural Hexagon Garnet details page is displayed after clicking the gemstone image',()=>{
+     cy.visit('https://houseofceylora.com/gems');
+     cy.get('img[alt="Natural Hexagon Garnet"]').click()
+     cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 10000 })
+     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
+  })
+  it('Verify Sign In to Purchase button opens the authentication modal',()=>{
+
+     cy.visit('https://houseofceylora.com/gems');
+     cy.get('img[alt="Natural Hexagon Garnet"]').click()
+     cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
+     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
+     cy.get('div[role="button"]').contains('Sign In to Purchase',{ timeout: 10000 }).should('be.visible').click()
+     cy.get('[class*="AuthModal-module-scss-module__j0NeoW__overlay"]').should('be.visible')
+     
+  })
 
   
 })
