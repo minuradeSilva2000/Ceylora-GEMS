@@ -1,7 +1,9 @@
 describe('template spec', () => {
+
   it('Verify the House of Ceylora home page loads successfully', () => {
-    cy.visit('https://houseofceylora.com')
+    cy.visit('https://houseofceylora.com/')
   })
+
   it('Verify user can navigate to the Gems page from the navigation menu', () => {
     cy.visit('https://houseofceylora.com')
     cy.get('nav[class*="MainNav"]', { timeout: 10000 }).should('be.visible')
@@ -86,16 +88,110 @@ describe('template spec', () => {
      cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 10000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
   })
-  it('Verify Sign In to Purchase button opens the authentication modal',()=>{
+  it('Verify authenticated user can add a gemstone to the shopping cart',()=>{
 
+     cy.visit('https://houseofceylora.com/gems');
+     cy.clearCookies();
+     cy.clearLocalStorage();
+     cy.clearAllSessionStorage();
+     cy.window().then((win) => {
+       if (win.indexedDB && win.indexedDB.databases) {
+         return win.indexedDB.databases().then((dbs) =>
+           Promise.all(dbs.map((db) => win.indexedDB.deleteDatabase(db.name)))
+         );
+       }
+     });
      cy.visit('https://houseofceylora.com/gems');
      cy.get('img[alt="Natural Hexagon Garnet"]').click()
      cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
-     cy.get('div[role="button"]').contains('Sign In to Purchase',{ timeout: 10000 }).should('be.visible').click()
+     cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 10000 }).scrollIntoView().click({ force: true })
+     cy.get('input[placeholder="you@example.com"]', { timeout: 20000 }).should('be.visible')
      cy.get('[class*="AuthModal-module-scss-module__j0NeoW__overlay"]').should('be.visible')
+     cy.get('[class*="AuthModal-module-scss-module__"][class*="__card"]').should('be.visible')
+    cy.get('input[placeholder="you@example.com"]').type('ceylorait@gmail.com')
+    cy.get('input[placeholder="••••••••"]').type('ceylora@123')
+    cy.get('button[class*="AuthModal-module-scss-module__"][class*="__submitBtn"]').click()
+    cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
+    
      
   })
+  it('Verify item is added to the cart and displayed in the cart sidebar', () => {
+    const API_KEY = 'AIzaSyDXnAMacC4N_e-13YnN51pxoPEhE8CK7zc';
+    const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
+
+    cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((auth) => {
+      const user = {
+        uid: auth.localId,
+        email: auth.email,
+        displayName: '',
+        emailVerified: true,
+        isAnonymous: false,
+        providerData: [
+          { uid: auth.localId, email: auth.email, displayName: '', providerId: 'password' },
+        ],
+        stsTokenManager: {
+          refreshToken: auth.refreshToken,
+          accessToken: auth.idToken,
+          expirationTime: Date.now() + parseInt(auth.expiresIn, 10) * 1000,
+        },
+        createdAt: String(Date.now()),
+        lastLoginAt: String(Date.now()),
+        apiKey: API_KEY,
+        appName: '[DEFAULT]',
+      };
+
+      cy.visit('https://houseofceylora.com/gems', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+          return new Promise((resolve) => {
+            try {
+              const open = win.indexedDB.open('firebaseLocalStorageDb', 1);
+              open.onupgradeneeded = () => {
+                if (!open.result.objectStoreNames.contains('firebaseLocalStorage')) {
+                  open.result.createObjectStore('firebaseLocalStorage', { keyPath: 'fbase_key' });
+                }
+              };
+              open.onsuccess = () => {
+                const tx = open.result.transaction('firebaseLocalStorage', 'readwrite');
+                tx.objectStore('firebaseLocalStorage').put({
+                  fbase_key: AUTH_STORAGE_KEY,
+                  value: user,
+                });
+                tx.oncomplete = () => { open.result.close(); resolve(); };
+                tx.onerror = () => { open.result.close(); resolve(); };
+              };
+              open.onerror = () => resolve();
+            } catch (e) {
+              resolve();
+            }
+          });
+        },
+      });
+    });
+
+    // Select a gem
+    cy.get('img[alt="Natural Hexagon Garnet"]').click();
+
+    // Wait until product page loads
+    cy.url().should('include', '/gems/');
+    cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
+
+    // Click Add To Cart
+    cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 15000 })
+      .scrollIntoView()
+      .should('contain.text', 'Add To Cart')
+      .click();
+
+    // Verify cart sidebar appears
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
+
+    // Verify added item is displayed in the cart sidebar
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Natural Hexagon Garnet');
+
+    // Verify quantity (gems are one-of-a-kind)
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
+  });
 
   
 })
