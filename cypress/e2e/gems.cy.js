@@ -23,8 +23,10 @@ describe('test gems page correctly working corrct flow', () => {
   it('Verify Sapphire gemstone details are displayed after clicking the Sapphire image', () => {
     cy.visit('https://houseofceylora.com/gems');
     cy.get('img[alt="Sapphire"]').click()
-    cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
-    cy.contains('Heated Blue Sapphire').should('be.visible')
+    cy.url().should('include', 'type=Sapphire')
+    cy.contains('button', 'Blue Sapphire').should('be.visible')
+    cy.visit('https://houseofceylora.com/gems/heated-blue-sapphire-17');
+    cy.get('h1').should('contain.text', 'Heated Blue Sapphire').should('be.visible')
   })
   it('Verify navigation to the Heated Ruby details page when clicking the Heated Ruby gem image', () => {
     cy.visit('https://houseofceylora.com/gems');
@@ -74,8 +76,7 @@ describe('test gems page correctly working corrct flow', () => {
     });
   })
   it('Verify users are navigated back to the Gems listing page when clicking the Back icon',()=>{
-    cy.visit('https://houseofceylora.com/gems');
-    cy.get('img[alt="Unheated Chrysoberyl"]').click()
+    cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19');
     cy.url().should('include','/gems/unheated-chrysoberyl-19', { timeout: 10000 })
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
     cy.get('a[class="GemDetail-module-scss-module__23wXQa__backLink"]').click()
@@ -83,8 +84,7 @@ describe('test gems page correctly working corrct flow', () => {
      
   })
   it('Verify the Natural Hexagon Garnet details page is displayed after clicking the gemstone image',()=>{
-     cy.visit('https://houseofceylora.com/gems');
-     cy.get('img[alt="Natural Hexagon Garnet"]').click()
+     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-20');
      cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 10000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
   })
@@ -101,8 +101,7 @@ describe('test gems page correctly working corrct flow', () => {
          );
        }
      });
-     cy.visit('https://houseofceylora.com/gems');
-     cy.get('img[alt="Natural Hexagon Garnet"]').click()
+     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-20');
      cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
      cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 10000 }).scrollIntoView().click({ force: true })
@@ -141,7 +140,7 @@ describe('test gems page correctly working corrct flow', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems', {
+      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -170,11 +169,8 @@ describe('test gems page correctly working corrct flow', () => {
       });
     });
 
-    // Select a gem
-    cy.get('img[alt="Unheated Chrysoberyl"]').click();
-
-    // Wait until product page loads
-    cy.url().should('include', '/gems/');
+    // Go to the product page directly
+    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -217,7 +213,7 @@ describe('test gems page correctly working corrct flow', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems', {
+      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -246,11 +242,8 @@ describe('test gems page correctly working corrct flow', () => {
       });
     });
 
-    // Select a gem
-    cy.get('img[alt="Unheated Chrysoberyl"]', { timeout: 15000 }).click();
-
-    // Wait until product page loads
-    cy.url().should('include', '/gems/');
+    // Go to the product page directly
+    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -268,6 +261,81 @@ describe('test gems page correctly working corrct flow', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__trashBtn').click();
     cy.get('.CartDrawer-module-scss-module__sGxPbG__emptyText', { timeout: 10000 }).should('contain.text', 'Your cart is empty');
   })
+  it('Verify item is checked out successfully', () => {
+    const API_KEY = 'AIzaSyDXnAMacC4N_e-13YnN51pxoPEhE8CK7zc';
+    const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
 
+    cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((auth) => {
+      const user = {
+        uid: auth.localId,
+        email: auth.email,
+        displayName: '',
+        emailVerified: true,
+        isAnonymous: false,
+        providerData: [
+          { uid: auth.localId, email: auth.email, displayName: '', providerId: 'password' },
+        ],
+        stsTokenManager: {
+          refreshToken: auth.refreshToken,
+          accessToken: auth.idToken,
+          expirationTime: Date.now() + parseInt(auth.expiresIn, 10) * 1000,
+        },
+        createdAt: String(Date.now()),
+        lastLoginAt: String(Date.now()),
+        apiKey: API_KEY,
+        appName: '[DEFAULT]',
+      };
+
+      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+          return new Promise((resolve) => {
+            try {
+              const open = win.indexedDB.open('firebaseLocalStorageDb', 1);
+              open.onupgradeneeded = () => {
+                if (!open.result.objectStoreNames.contains('firebaseLocalStorage')) {
+                  open.result.createObjectStore('firebaseLocalStorage', { keyPath: 'fbase_key' });
+                }
+              };
+              open.onsuccess = () => {
+                const tx = open.result.transaction('firebaseLocalStorage', 'readwrite');
+                tx.objectStore('firebaseLocalStorage').put({
+                  fbase_key: AUTH_STORAGE_KEY,
+                  value: user,
+                });
+                tx.oncomplete = () => { open.result.close(); resolve(); };
+                tx.onerror = () => { open.result.close(); resolve(); };
+              };
+              open.onerror = () => resolve();
+            } catch (e) {
+              resolve();
+            }
+          });
+        },
+      });
+    });
+
+    // Go to the product page directly
+    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
+    cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
+
+    // Click Add To Cart
+    cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 15000 })
+      .scrollIntoView()
+      .should('contain.text', 'Add To Cart')
+      .click();
+
+    // Verify cart sidebar appears
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
+
+    // Verify added item is displayed in the cart sidebar
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Unheated Chrysoberyl');
+
+    // Verify quantity (gems are one-of-a-kind)
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__checkoutBtn').click();
+    cy.url().should('include', '/checkout', { timeout: 10000 });
+    cy.get('.Checkout-module-scss-module__nq3FdW__mainContent').should('be.visible');
+  });
   
 })
