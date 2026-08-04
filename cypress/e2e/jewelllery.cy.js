@@ -69,4 +69,11 @@ describe('test gems page correctly working corrct flow', () => {
        cy.url().should('include','/jewellery?metal=Rose+Gold&category=Pendant',{ timeout: 10000 })
       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
   })
+  it('Verify the click jewelary then navigate coeectly that page',()=>{
+
+     cy.visit('https://houseofceylora.com/jewellery');
+     cy.get('img[alt="10K White Gold Heated Pearl Necklace"]').should('be.visible').click()
+     cy.url().should('include','/jewellery/10k-white-gold-heated-pearl-necklace-3')
+     cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible')
+  })
 })
