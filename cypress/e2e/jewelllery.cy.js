@@ -18,4 +18,10 @@ describe('test gems page correctly working corrct flow', () => {
     cy.url().should('include', '/jewellery')
     cy.get('a[class*="MainNav-module-scss-module__Zci5Yq__link"]').contains('JEWELLERY').should('be.visible')
   })
+  it('Verify user can open the 8k White Gold Unheated Jadite Ring details page',()=>{
+     cy.visit('https://houseofceylora.com/jewellery')
+     cy.get('img[alt="8k White Gold Unheated Jadite Ring"]').should('be.visible').click()
+     cy.url().should('include','/jewellery/8k-white-gold-unheated-jadite-ring-5')
+     cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible')
+  })
 })
