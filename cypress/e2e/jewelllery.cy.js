@@ -42,7 +42,7 @@ describe('test gems page correctly working corrct flow', () => {
   it('Verify jewellery filtering by material category works correctly',()=>{
        cy.visit('https://houseofceylora.com/jewellery');
        cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
-       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Metal').scrollIntoView().should('be.visible')
+       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]', { timeout: 15000 }).contains('Metal').scrollIntoView().should('be.visible')
        cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('White Gold').scrollIntoView().should('be.visible').click()
        cy.url().should('include','/jewellery?metal=White+Gold', { timeout: 10000 })
        cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
@@ -50,7 +50,7 @@ describe('test gems page correctly working corrct flow', () => {
   it('Verify jewellery filtering by  category works correctly',()=>{
       cy.visit('https://houseofceylora.com/jewellery');
       cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
-      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Category').scrollIntoView().should('be.visible')
+      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]', { timeout: 15000 }).contains('Category').scrollIntoView().should('be.visible')
       cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Earrings').scrollIntoView().should('be.visible').click()
       cy.url().should('include','/jewellery?category=Earrings',{ timeout: 10000 })
       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
@@ -59,21 +59,83 @@ describe('test gems page correctly working corrct flow', () => {
   it('Verify jewellery filtering by metal and category works correctly',()=>{
       cy.visit('https://houseofceylora.com/jewellery');
       cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
-       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Metal').scrollIntoView().should('be.visible')
+       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]', { timeout: 15000 }).contains('Metal').scrollIntoView().should('be.visible')
        cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Rose Gold').scrollIntoView().should('be.visible').click()
        cy.url().should('include','/jewellery?metal=Rose+Gold', { timeout: 10000 })
        cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
        cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).first().scrollIntoView().should('be.visible')
-      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Category').scrollIntoView().should('be.visible')
+      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]', { timeout: 15000 }).contains('Category').scrollIntoView().should('be.visible')
       cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Pendant').scrollIntoView().should('be.visible').click()
        cy.url().should('include','/jewellery?metal=Rose+Gold&category=Pendant',{ timeout: 10000 })
       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
   })
-  it('Verify the click jewelary then navigate coeectly that page',()=>{
+  it('Verify jewellery product navigation to details page works correctly',()=>{
 
      cy.visit('https://houseofceylora.com/jewellery');
      cy.get('img[alt="10K White Gold Heated Pearl Necklace"]').should('be.visible').click()
      cy.url().should('include','/jewellery/10k-white-gold-heated-pearl-necklace-3')
      cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible')
+  })
+  it('verify click the add to cart button on the product details page adds the item to the cart drawer',()=>{
+     const API_KEY = 'AIzaSyDXnAMacC4N_e-13YnN51pxoPEhE8CK7zc';
+     const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
+
+     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((auth) => {
+       const user = {
+         uid: auth.localId,
+         email: auth.email,
+         displayName: '',
+         emailVerified: true,
+         isAnonymous: false,
+         providerData: [
+           { uid: auth.localId, email: auth.email, displayName: '', providerId: 'password' },
+         ],
+         stsTokenManager: {
+           refreshToken: auth.refreshToken,
+           accessToken: auth.idToken,
+           expirationTime: Date.now() + parseInt(auth.expiresIn, 10) * 1000,
+         },
+         createdAt: String(Date.now()),
+         lastLoginAt: String(Date.now()),
+         apiKey: API_KEY,
+         appName: '[DEFAULT]',
+       };
+
+       cy.visit('https://houseofceylora.com/jewellery/10k-white-gold-heated-pearl-necklace-3', {
+         onBeforeLoad(win) {
+           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+           return new Promise((resolve) => {
+             try {
+               const open = win.indexedDB.open('firebaseLocalStorageDb', 1);
+               open.onupgradeneeded = () => {
+                 if (!open.result.objectStoreNames.contains('firebaseLocalStorage')) {
+                   open.result.createObjectStore('firebaseLocalStorage', { keyPath: 'fbase_key' });
+                 }
+               };
+               open.onsuccess = () => {
+                 const tx = open.result.transaction('firebaseLocalStorage', 'readwrite');
+                 tx.objectStore('firebaseLocalStorage').put({
+                   fbase_key: AUTH_STORAGE_KEY,
+                   value: user,
+                 });
+                 tx.oncomplete = () => { open.result.close(); resolve(); };
+                 tx.onerror = () => { open.result.close(); resolve(); };
+               };
+               open.onerror = () => resolve();
+             } catch (e) {
+               resolve();
+             }
+           });
+         },
+       });
+     });
+
+     cy.url().should('include', '/jewellery/10k-white-gold-heated-pearl-necklace-3');
+     cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible');
+
+     cy.get('button[class*="__btnCart"]', { timeout: 15000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
+
+     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
+     cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', '10K White Gold Heated Pearl Necklace');
   })
 })
