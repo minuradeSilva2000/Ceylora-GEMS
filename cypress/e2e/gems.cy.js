@@ -696,9 +696,9 @@ describe('test gems page correctly working corrct flow', () => {
     cy.get('.Account-module-scss-module__0dtnZq__wrapper', { timeout: 15000 }).should('be.visible');
     cy.get('h2[class="Account-module-scss-module__0dtnZq__sectionTitle"]').should('contain.text', 'WISHLIST');
     cy.get('.Account-module-scss-module__0dtnZq__emptyState').should('contain.text', 'Your wishlist is empty');
-    cy.contains('Continue Shopping').should('have.attr', 'href', '/shop').click();
-    cy.url().should('include','/shop', { timeout: 10000})
-    cy.get('.Shop-module-scss-module__VRg8KG__wrapper',{ timeout: 15000 }).should('be.visible')
+    cy.contains('Continue Shopping').should('have.attr', 'href', '/jewellery').click();
+    cy.url().should('include','/jewellery', { timeout: 10000})
+    cy.get('.Shop-module-scss-module__lTh0aa__wrapper',{ timeout: 15000 }).should('be.visible')
   })
   
 })

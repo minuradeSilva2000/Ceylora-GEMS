@@ -10,4 +10,12 @@ describe('test gems page correctly working corrct flow', () => {
     cy.url().should('include', '/jewellery')
     cy.get('a[class*="link--active"]').contains('JEWELLERY').should('be.visible')
   })
+   it('Verify navigation to Gems page when clicking the "Shop" button in JEWELLERY Collection section on Home page',()=>{
+    cy.visit('https://houseofceylora.com')
+    cy.get('section[class="Home-module-scss-module__QoBbiW__collections"]').should('be.visible')
+    cy.contains('h3[class*="collectionCardTitle"]', 'Jewellery Collection').should('be.visible')
+    cy.contains('h3[class*="collectionCardTitle"]', 'Jewellery Collection').parent().find('a[class*="collectionCardShopBtn"]').click()
+    cy.url().should('include', '/jewellery')
+    cy.get('a[class*="MainNav-module-scss-module__Zci5Yq__link"]').contains('JEWELLERY').should('be.visible')
+  })
 })
