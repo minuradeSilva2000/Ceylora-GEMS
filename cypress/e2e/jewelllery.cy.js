@@ -47,4 +47,12 @@ describe('test gems page correctly working corrct flow', () => {
        cy.url().should('include','/jewellery?metal=White+Gold', { timeout: 10000 })
        cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
   })
+  it('Verify jewellery filtering by  category works correctly',()=>{
+      cy.visit('https://houseofceylora.com/jewellery');
+      cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
+      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Category').scrollIntoView().should('be.visible')
+      cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Earrings').scrollIntoView().should('be.visible').click()
+      cy.url().should('include','/jewellery?category=Earrings',{ timeout: 10000 })
+      cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
+  })
 })
