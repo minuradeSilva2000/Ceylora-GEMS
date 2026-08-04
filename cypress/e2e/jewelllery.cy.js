@@ -33,4 +33,10 @@ describe('test gems page correctly working corrct flow', () => {
     cy.url().should('include','/jewellery',{ timeout: 10000 })
      
   })
+  it('Verify user can open the Pink Sapphire Bracelet details page',()=>{
+     cy.visit('https://houseofceylora.com/jewellery')
+     cy.get('img[alt="Pink Sapphire Bracelet"]').should('be.visible').click()
+     cy.url().should('include','/jewellery/pink-sapphire-bracelet-2')
+     cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible')
+  })
 })
