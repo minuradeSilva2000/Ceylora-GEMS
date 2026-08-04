@@ -39,4 +39,12 @@ describe('test gems page correctly working corrct flow', () => {
      cy.url().should('include','/jewellery/pink-sapphire-bracelet-2')
      cy.get('.JewelleryDetail-module-scss-module__BOs-Ga__pageContainer').should('be.visible')
   })
+  it('Verify jewellery filtering by material category works correctly',()=>{
+       cy.visit('https://houseofceylora.com/jewellery');
+       cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
+       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Metal').scrollIntoView().should('be.visible')
+       cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('White Gold').scrollIntoView().should('be.visible').click()
+       cy.url().should('include','/jewellery?metal=White+Gold', { timeout: 10000 })
+       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
+  })
 })
