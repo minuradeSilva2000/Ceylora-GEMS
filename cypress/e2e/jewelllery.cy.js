@@ -55,4 +55,18 @@ describe('test gems page correctly working corrct flow', () => {
       cy.url().should('include','/jewellery?category=Earrings',{ timeout: 10000 })
       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
   })
+
+  it('Verify jewellery filtering by metal and category works correctly',()=>{
+      cy.visit('https://houseofceylora.com/jewellery');
+      cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).should('be.visible')
+       cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Metal').scrollIntoView().should('be.visible')
+       cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Rose Gold').scrollIntoView().should('be.visible').click()
+       cy.url().should('include','/jewellery?metal=Rose+Gold', { timeout: 10000 })
+       cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
+       cy.get('.Shop-module-scss-module__lTh0aa__filterGroup', { timeout: 15000 }).first().scrollIntoView().should('be.visible')
+      cy.get('h3[class="Shop-module-scss-module__lTh0aa__filterGroupTitle"]').contains('Category').scrollIntoView().should('be.visible')
+      cy.get('label[class="Shop-module-scss-module__lTh0aa__filterItem"]').contains('Pendant').scrollIntoView().should('be.visible').click()
+       cy.url().should('include','/jewellery?metal=Rose+Gold&category=Pendant',{ timeout: 10000 })
+      cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible')
+  })
 })
