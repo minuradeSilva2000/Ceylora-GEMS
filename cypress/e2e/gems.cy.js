@@ -140,7 +140,7 @@ describe('test gems page correctly working corrct flow', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
+      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -170,7 +170,7 @@ describe('test gems page correctly working corrct flow', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
+    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -183,7 +183,7 @@ describe('test gems page correctly working corrct flow', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Unheated Chrysoberyl');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -213,7 +213,7 @@ describe('test gems page correctly working corrct flow', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
+      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -243,7 +243,7 @@ describe('test gems page correctly working corrct flow', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
+    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -254,7 +254,7 @@ describe('test gems page correctly working corrct flow', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Unheated Chrysoberyl');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -286,7 +286,7 @@ describe('test gems page correctly working corrct flow', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19', {
+      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -316,7 +316,7 @@ describe('test gems page correctly working corrct flow', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/unheated-chrysoberyl-19');
+    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -329,7 +329,7 @@ describe('test gems page correctly working corrct flow', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Unheated Chrysoberyl');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -337,5 +337,93 @@ describe('test gems page correctly working corrct flow', () => {
     cy.url().should('include', '/checkout', { timeout: 10000 });
     cy.get('.Checkout-module-scss-module__nq3FdW__mainContent').should('be.visible');
   });
+  it('verify click order now check button naviagte to my account page', () => {
+    const API_KEY = 'AIzaSyDXnAMacC4N_e-13YnN51pxoPEhE8CK7zc';
+    const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
+
+    cy.intercept('POST', '**/api/orders', { statusCode: 200, body: { id: 99999, ok: true } }).as('placeOrder');
+
+    cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((auth) => {
+      const user = {
+        uid: auth.localId,
+        email: auth.email,
+        displayName: '',
+        emailVerified: true,
+        isAnonymous: false,
+        providerData: [
+          { uid: auth.localId, email: auth.email, displayName: '', providerId: 'password' },
+        ],
+        stsTokenManager: {
+          refreshToken: auth.refreshToken,
+          accessToken: auth.idToken,
+          expirationTime: Date.now() + parseInt(auth.expiresIn, 10) * 1000,
+        },
+        createdAt: String(Date.now()),
+        lastLoginAt: String(Date.now()),
+        apiKey: API_KEY,
+        appName: '[DEFAULT]',
+      };
+
+      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+          return new Promise((resolve) => {
+            try {
+              const open = win.indexedDB.open('firebaseLocalStorageDb', 1);
+              open.onupgradeneeded = () => {
+                if (!open.result.objectStoreNames.contains('firebaseLocalStorage')) {
+                  open.result.createObjectStore('firebaseLocalStorage', { keyPath: 'fbase_key' });
+                }
+              };
+              open.onsuccess = () => {
+                const tx = open.result.transaction('firebaseLocalStorage', 'readwrite');
+                tx.objectStore('firebaseLocalStorage').put({
+                  fbase_key: AUTH_STORAGE_KEY,
+                  value: user,
+                });
+                tx.oncomplete = () => { open.result.close(); resolve(); };
+                tx.onerror = () => { open.result.close(); resolve(); };
+              };
+              open.onerror = () => resolve();
+            } catch (e) {
+              resolve();
+            }
+          });
+        },
+      });
+    });
+
+    cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((cleanupAuth) => {
+      cy.request({
+        method: 'PATCH',
+        url: 'https://houseofceylora.com/api/gems/15/unreserve',
+        headers: { Authorization: 'Bearer ' + cleanupAuth.idToken },
+      });
+    });
+
+    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer', { timeout: 15000 }).should('be.visible');
+    cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 30000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__checkoutBtn').click();
+    cy.url().should('include', '/checkout', { timeout: 10000 });
+    cy.get('.Checkout-module-scss-module__nq3FdW__mainContent', { timeout: 15000 }).should('be.visible');
+
+    const shipping = ['John Doe', 'john@example.com', '0712345678', '1 Galle Road', 'Colombo', 'Sri Lanka', '00100'];
+    cy.get('input[type="text"], input[type="email"], input[type="tel"]')
+      .not('[placeholder="NEWSLETTER WILL BE COMING SOON"]')
+      .each(($el, idx) => {
+        if (idx < shipping.length) cy.wrap($el).type(shipping[idx], { force: true });
+      });
+
+    cy.contains('button','Order').click();
+    cy.url().should('include','/checkout', { timeout: 10000 });
+    cy.get('.Checkout-module-scss-module__nq3FdW__mainContent', { timeout: 15000 }).should('be.visible');
+    cy.contains('Order placed successfully.').should('be.visible');
+    cy.contains('View My Orders').should('have.attr', 'href', '/account').click();
+    cy.url().should('include','/account', { timeout: 10000 });
+    cy.get('.Account-module-scss-module__0dtnZq__wrapper', { timeout: 15000 }).should('be.visible');
+  })
+  
   
 })
