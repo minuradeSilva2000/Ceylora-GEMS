@@ -153,5 +153,21 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
       
   })
+  it('Verify order search functionality using a valid order reference',()=>{
+
+
+    cy.visit('https://houseofceylora.com/admin')
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+    cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+    cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+    cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+    cy.get('input[placeholder="Search by order ref, name, or email…"]').type('ORD-CY-00020')
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+
+    
+  })
 
 })
