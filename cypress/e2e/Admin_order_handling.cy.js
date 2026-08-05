@@ -137,4 +137,21 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
       cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value', 'Cancelled')
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
   })
+  it( 'Verify admin user can view order details after filtering orders by "Cancelled" status',()=>{
+      cy.visit('https://houseofceylora.com/admin')
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+      cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Cancelled')
+      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value', 'Cancelled')
+      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
+      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(4).click()
+      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+      
+  })
+
 })
