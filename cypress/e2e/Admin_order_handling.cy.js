@@ -1,13 +1,12 @@
 describe('Admin order page  - End-to-End Functional Test Suite', () => {
 
-  it('verify admin dashboard successfully loading', () => {
+  it('Verify successful navigation to the Admin Dashboard after user authentication', () => {
     cy.on('uncaught:exception', () => false)
 
     const API_KEY = 'AIzaSyDXnAMacC4N_e-13YnN51pxoPEhE8CK7zc';
     const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
 
-    // Flaky CDN/font preloads can keep the page's `load` event from firing under
-    // Cypress's proxy. Abort them so load completes and visits are reliable.
+    
     cy.intercept('https://pub-f5f84942a0c7436a88cf9b4653561398.r2.dev/**', (req) => req.destroy())
     cy.intercept('**/*.woff2', (req) => req.destroy())
 
@@ -66,9 +65,7 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('nav[class*="MainNav"]', { timeout: 15000 }).should('be.visible');
     cy.get('.Collections-module-scss-module__R3MVuG__pageContainer').should('be.visible');
 
-    // Firebase auth initialises a few seconds after the page loads. Click the
-    // user icon repeatedly until the authenticated user menu opens, ignoring
-    // clicks that land before React hydration / auth initialisation.
+    
     cy.then(() => new Promise((resolve) => {
       let attempts = 0;
       const tick = () => {
