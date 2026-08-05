@@ -83,6 +83,7 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
   })
   it('Verify the Admin Dashboard loads successfully and the sidebar menu opens on click',()=>{
+
      cy.visit('https://houseofceylora.com/admin')
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
@@ -95,7 +96,8 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
-    cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
   })
   it('Verify admin user can access the Orders page and open order details from the order list successfully',()=>{
 
@@ -109,6 +111,7 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(2).click()
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
   })
   it('Verify admin user can update the order status to "Confirmed" successfully',()=>{
 
@@ -124,9 +127,11 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(10).find('select[class*="statusSelect"]').should('be.visible').select('Confirmed')
     cy.get('.Orders-module-scss-module__z7pe0q__orderBody').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
   })
 
   it( 'Verify the Orders page displays only cancelled orders when the "Cancelled" filter is selected',()=>{
+
       cy.visit('https://houseofceylora.com/admin')
       cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
       cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
@@ -136,8 +141,10 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
       cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Cancelled')
       cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value', 'Cancelled')
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+       cy.wait(3000)
   })
   it( 'Verify admin user can view order details after filtering orders by "Cancelled" status',()=>{
+
       cy.visit('https://houseofceylora.com/admin')
       cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
       cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
@@ -151,10 +158,9 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(4).click()
       cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-      
+      cy.wait(3000)
   })
   it('Verify order search functionality using a valid order reference',()=>{
-
 
     cy.visit('https://houseofceylora.com/admin')
     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
