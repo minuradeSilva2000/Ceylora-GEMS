@@ -1,4 +1,4 @@
-describe('test gems page correctly working corrct flow', () => {
+describe('test juwelllery page correctly working corrct flow', () => {
 
   it('Verify the House of Ceylora home page loads successfully', () => {
     cy.visit('https://houseofceylora.com/')
