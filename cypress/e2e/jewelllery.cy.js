@@ -1,4 +1,4 @@
-describe('test juwelllery page correctly working corrct flow', () => {
+describe('Jewellery Page - End-to-End Functional Test Suite', () => {
 
   it('Verify the House of Ceylora home page loads successfully', () => {
     cy.visit('https://houseofceylora.com/')
