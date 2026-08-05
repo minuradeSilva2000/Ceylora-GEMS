@@ -110,4 +110,19 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(2).click()
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
   })
+  it('Verify admin user can update the order status to "Confirmed" successfully',()=>{
+
+    cy.visit('https://houseofceylora.com/admin')
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+    cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+    cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+    cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(10).click()
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(10).find('select[class*="statusSelect"]').should('be.visible').select('Confirmed')
+    cy.get('.Orders-module-scss-module__z7pe0q__orderBody').should('be.visible', { timeout: 30000 });
+  })
 })
