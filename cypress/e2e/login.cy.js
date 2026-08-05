@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Home Page - End-to-End Functional Test Suite', () => {
   it('Verify the House of Ceylora home page loads successfully', () => {
     cy.on('uncaught:exception', () => false)
 
