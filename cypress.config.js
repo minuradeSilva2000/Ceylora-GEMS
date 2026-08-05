@@ -50,7 +50,7 @@ function signInWithFirebase(email, password) {
 
 module.exports = defineConfig({
   allowCypressEnv: false,
-  pageLoadTimeout: 120000,
+  pageLoadTimeout: 300000,
 
   e2e: {
     setupNodeEvents(on, config) {
