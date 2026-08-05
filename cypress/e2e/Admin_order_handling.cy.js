@@ -7,8 +7,8 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     const AUTH_STORAGE_KEY = 'firebase:authUser:' + API_KEY + ':[DEFAULT]';
 
     
-    cy.intercept('https://pub-f5f84942a0c7436a88cf9b4653561398.r2.dev/**', (req) => req.destroy())
-    cy.intercept('**/*.woff2', (req) => req.destroy())
+    cy.intercept('https://pub-f5f84942a0c7436a88cf9b4653561398.r2.dev/static/navicons/user.webp', (req) => req.destroy())
+    cy.intercept('https://pub-f5f84942a0c7436a88cf9b4653561398.r2.dev/static/navicons/user.webp', (req) => req.destroy())
 
     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((auth) => {
       const user = {
@@ -71,7 +71,7 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
       const tick = () => {
         if (Cypress.$('.MainNav-module-scss-module__Zci5Yq__userMenu').length > 0 || attempts >= 40) return resolve();
         attempts += 1;
-        Cypress.$('button[class*="NavIcon-module-scss-module__"][class*="__icon"]').first().click();
+        Cypress.$('button[class="NavIcon-module-scss-module__mwU8va__icon "][class="NavIcon-module-scss-module__mwU8va__icon "]').first().click();
         setTimeout(tick, 1000);
       };
       tick();
@@ -81,6 +81,12 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('a[class*="userMenuAdmin"]').contains('Admin Dashboard').click();
     cy.url().should('include', '/admin', { timeout: 30000 });
     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+  })
+  it('Verify the Admin Dashboard loads successfully and the sidebar menu opens on click',()=>{
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
   })
 
 })
