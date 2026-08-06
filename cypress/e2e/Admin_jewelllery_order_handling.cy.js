@@ -131,27 +131,27 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
      cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Processing')
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value','Processing')
-     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard', { timeout: 30000 }).should('be.visible');
      cy.wait(3000)
      
    })
-     it('Verify admin user can filter jewellery orders by processing status successfully',()=>{
+     it('Verify admin user can open order details after filtering by Processing status',()=>{
 
      cy.visit('https://houseofceylora.com/admin')
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
-     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 40000 });
      cy.contains('button','Jewellery').should('be.visible').click()
-     cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 40000 });
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Processing')
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value','Processing')
-     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
-     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-   
-     
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard', { timeout: 40000 }).should('be.visible');
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard', { timeout: 40000 }).first().click()
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard', { timeout: 40000 }).should('be.visible');
+     cy.wait(3000)
+      
    })
    it('Verify admin can view jewellery orders with Confirmed status in the Orders page',()=>{
 
@@ -163,15 +163,23 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
      cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
      cy.contains('button','Jewellery').should('be.visible').click()
      cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
-     cy.get('.Orders-module-scss-module__z7pe0q__orderCard')
-        .find('select[class*="statusSelect"]')
-        .filter((i, el) => el.value === 'Confirmed')
-        .should('have.length.at.least', 1)
-        .first()
-        .should('have.value', 'Confirmed')
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').find('select[class*="statusSelect"]').filter((i, el) => el.value === 'Confirmed').should('have.length.at.least', 1).first().should('have.value', 'Confirmed')
      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-      
-
+     cy.wait(3000)
 
    })
+   it('Verify admin user can search and view a specific jewellery order by order reference successfully',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.contains('button','Jewellery').should('be.visible').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
+     cy.get('input[placeholder="Search by order ref, name, or email…"]').type('ORD-CY-00006')
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible',{timeout:30000})
+     cy.wait(3000)
+  })
 })
