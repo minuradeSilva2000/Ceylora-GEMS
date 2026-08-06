@@ -85,5 +85,13 @@ describe('Admin order gems section - End-to-End Functional Test Suite', () => {
     
     
     })
+    
+    it('Verify admin user can access the dashboard and open the sidebar menu successfully',()=>{
 
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
+    })
 })
