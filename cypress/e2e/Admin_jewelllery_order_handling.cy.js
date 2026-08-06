@@ -106,7 +106,7 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
      cy.wait(3000)
    })
 
-   it('Verify admin user can filter and view jewellery orders successfully from the Orders page',()=>{
+   it('Verify Processing jewellery orders are displayed correctly in Admin Orders page',()=>{
 
      cy.visit('https://houseofceylora.com/admin')
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
@@ -132,6 +132,25 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Processing')
      cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value','Processing')
      cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
+     
+   })
+     it('Verify admin user can filter jewellery orders by processing status successfully',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.contains('button','Jewellery').should('be.visible').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
+     cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('be.visible').select('Processing')
+     cy.get('select[class="Orders-module-scss-module__z7pe0q__filterSelect"]').should('have.value','Processing')
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+   
      
    })
 })
