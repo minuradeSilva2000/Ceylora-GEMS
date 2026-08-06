@@ -153,4 +153,25 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
    
      
    })
+   it('Verify admin can view jewellery orders with Confirmed status in the Orders page',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     cy.contains('button','Jewellery').should('be.visible').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__orderList').should('be.visible',{ timeout: 30000 });
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard')
+        .find('select[class*="statusSelect"]')
+        .filter((i, el) => el.value === 'Confirmed')
+        .should('have.length.at.least', 1)
+        .first()
+        .should('have.value', 'Confirmed')
+     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
+      
+
+
+   })
 })
