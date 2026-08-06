@@ -64,7 +64,7 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
 
     cy.url().should('include', '/jewellery', { timeout: 30000 });
     cy.get('nav[class*="MainNav"]', { timeout: 15000 }).should('be.visible');
-
+    cy.get('.Shop-module-scss-module__lTh0aa__wrapper').should('be.visible', { timeout: 30000 });
     
     cy.then(() => new Promise((resolve) => {
       let attempts = 0;
@@ -78,23 +78,34 @@ describe('Admin order jewellery section - End-to-End Functional Test Suite', () 
     }), { timeout: 60000 })
     
     cy.get('.MainNav-module-scss-module__Zci5Yq__userMenu').should('be.visible');
-    cy.get('a[class*="userMenuAdmin"]').contains('Admin Dashboard').click();
-    cy.url().should('include', '/admin', { timeout: 30000 });
-    cy.get('.AdminLayout-module-scss-module__tIFY2q__adminContainer').should('be.visible', { timeout: 30000 });
+    cy.get('a[class*="userMenuAdmin"]').contains('Admin Dashboard').should('be.visible').click();
+    cy.url({ timeout: 60000 }).should('include', '/admin');
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__adminContainer', { timeout: 60000 }).should('be.visible');
     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
-
+    cy.wait(3000)
+    
     })
-    it('Verify the Admin Dashboard loads successfully and the sidebar menu opens on click',()=>{
+    it('Verify admin user can access the dashboard and open the sidebar menu successfully',()=>{
 
      cy.visit('https://houseofceylora.com/admin')
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
-
-
+     cy.wait(3000)
     })
+      it('Verify admin user can navigate to the Orders page successfully from the sidebar menu',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Orders').click()
+     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
+     
+  })
 })
+
   
 
 
