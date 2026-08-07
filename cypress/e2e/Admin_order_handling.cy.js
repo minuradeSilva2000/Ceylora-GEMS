@@ -123,9 +123,9 @@ describe('Admin order page  - End-to-End Functional Test Suite', () => {
     cy.get('.Orders-module-scss-module__z7pe0q__container').should('be.visible', { timeout: 30000 });
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').first().click()
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(10).click()
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(14).click()
     cy.get('.Orders-module-scss-module__z7pe0q__orderCard').should('be.visible', { timeout: 30000 });
-    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(10).find('select[class*="statusSelect"]').should('be.visible').select('Confirmed')
+    cy.get('.Orders-module-scss-module__z7pe0q__orderCard').eq(14).find('select[class*="statusSelect"]').should('be.visible').select('Confirmed')
     cy.get('.Orders-module-scss-module__z7pe0q__orderBody').should('be.visible', { timeout: 30000 });
      cy.wait(3000)
   })
