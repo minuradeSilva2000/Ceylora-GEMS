@@ -94,4 +94,16 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.wait(3000)
      
     })
+
+
+     it('Verify admin user can navigate to the Gems Inventory page successfully from the sidebar menu',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
+  })
 })
