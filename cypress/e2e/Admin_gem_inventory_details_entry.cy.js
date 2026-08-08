@@ -135,5 +135,23 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
       cy.get('a[class="GemView-module-scss-module__Nzmfea__backBtn"]').click({force:true})
       cy.url({ timeout: 60000 }).should('include', '/admin/gems');
       cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+      cy.wait(3000)
     })
+     it('Verify admin user can view gem details and navigate to the store successfully',()=>{
+
+      cy.visit('https://houseofceylora.com/admin')
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+      cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(1).click({force:true})
+      cy.url({ timeout: 60000 }).should('include', '/admin/gems/view/20');
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+      cy.get('a[class="AdminLayout-module-scss-module__tIFY2q__storeLink"]').click({force:true})
+      cy.url({ timeout: 60000 }).should('include', '/');
+      cy.get('html[class="cinzel_13d77c45-module__dZz2Ea__variable manrope_e77dbc5b-module__M6Ugnq__variable inter_c6329508-module__8rk5pW__variable"]').should('be.visible', { timeout: 30000 });
+    })
+    
 })
