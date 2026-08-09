@@ -195,5 +195,34 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.get('a[class="GemView-module-scss-module__Nzmfea__editBtn"]').should('be.visible').click({force:true})
      cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/14')
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+     cy.wait(3000)
     })
+
+
+    it('Verify admin can update a gem selling price, save changes, and navigate back to Gems Inventory',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]', { timeout: 60000 }).should('have.length.gte', 8);
+     cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/16');
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+     cy.get('a[class="GemView-module-scss-module__Nzmfea__editBtn"]').should('be.visible').click({force:true})
+     cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/16')
+     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+     cy.get('input[name="selling_price"]').clear().type('5000.00')
+     cy.get('button[class="GemForm-module-scss-module__6JXq1W__saveBtn"]').click({force:true})
+     cy.url({timeout:30000}).should('include','/admin/gems')
+     cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/16');
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+    })
+
+    
 })
