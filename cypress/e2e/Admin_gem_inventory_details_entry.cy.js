@@ -238,7 +238,7 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.url({ timeout: 30000 }).should('include','/admin/gems/new')
     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
     cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image1.jpeg', { force: true});
-    cy.wait(3000)  
+    cy.wait(8000)  
      
   })
 
@@ -255,7 +255,7 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
     cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image4.jpeg', { force: true});
     cy.get('input[type="file"]').eq(1).selectFile(['cypress/fixtures/image5.jpg','cypress/fixtures/image1.jpeg'], { force: true});
-    cy.wait(3000)
+    cy.wait(12000)
    }) 
      it('Verify admin can successfully upload single and multiple valid images when creating a gem',()=>{
 
@@ -270,9 +270,9 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
     cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image1.jpeg', { force: true});
     cy.get('input[type="file"]').eq(1).selectFile(['cypress/fixtures/image5.jpg','cypress/fixtures/image4.jpeg'], { force: true});
-    cy.wait(3000)
+    cy.wait(12000)
    })
-    it('Verify admin can successfully upload single and multiple valid images when creating a gem',()=>{
+    it('Verify admin can upload single and multiple valid images when creating a gem',()=>{
 
     cy.visit('https://houseofceylora.com/admin')
     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
@@ -283,10 +283,48 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__addBtn"]').should('be.visible').click({force:true})
     cy.url({ timeout: 30000 }).should('include','/admin/gems/new')
     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
-    cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image1.jpeg', { force: true});
+    cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image6.jpg', { force: true});
     cy.get('input[type="file"]').eq(1).selectFile(['cypress/fixtures/image5.jpg','cypress/fixtures/image4.jpeg'], { force: true});
     cy.get('select[required]').should('have.length', 4);
     cy.get('select[required]').eq(0).select('QTZ').should('have.value', 'QTZ');
+    cy.wait(12000)
     
+   })
+    it('Verify Admin User Can Add a New Gem with Valid Details and Images',()=>{
+
+    cy.visit('https://houseofceylora.com/admin')
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+    cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+    cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
+    cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+    cy.get('a[class="GemInventory-module-scss-module__aAoEsG__addBtn"]').should('be.visible').click({force:true})
+    cy.url({ timeout: 30000 }).should('include','/admin/gems/new')
+    cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+    cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image8.jpg', { force: true});
+    cy.get('input[type="file"]').eq(1).selectFile(['cypress/fixtures/image6.jpg','cypress/fixtures/image7.jpg'], { force: true});
+    cy.get('select[required]').should('have.length', 4);
+    cy.get('select[required]').eq(0).select('QTZ').should('have.value', 'QTZ');
+    cy.get('select[required]').eq(1).select('QT').should('have.value', 'QT');
+    cy.get('select[required]').eq(2).select('D').should('have.value', 'D');
+    cy.get('select[required]').eq(3).select('Under Certification').should('have.value', 'Under Certification');
+    cy.get('input[name="basic_colour"]').type('Multi-Color (Blue, Red, Orange, Green, Purple, Yellow, Pink)')
+    cy.get('input[name="trade_color"]').type('Cornflower Blue')
+    cy.get('input[name="weight_carat"]').type('3.2')
+    cy.get('select[name="pair_or_single"]').eq(0).select('Matching Pair').should('have.value', 'Matching Pair')
+    cy.get('select[name="shape"]').select('Round').should('have.value', 'Round')
+    cy.get('input[name="dimensions"]').type('8.2 × 7.5 × 4.8')
+    cy.get('select[name="cut_grade"]').eq(0).select('Brilliant').should('have.value', 'Brilliant')
+    cy.get('select[name="clarity"]').select('VVS2').should('have.value', 'VVS2')
+    cy.get('select[name="transparency"]').select('Transparent').should('have.value', 'Transparent')
+    cy.get('input[name="origin"]').type('Brazil')
+    cy.get('input[name="certificate"]').type('GIA')
+    cy.get('input[name="lab"]').type('GIA0001')
+    cy.get('input[name="certificate_number"]').type('GIC-2026-77182689')
+    cy.get('input[name="supplier"]').type('Seneth Hettiarchchi')
+    cy.get('select[name="location"]').select('Showroom').should('have.value', 'Showroom')
+    cy.get('input[name="price"]').type('50000.00')
+    cy.get('input[name="certificate_cost"]').type('1500.00')
+    cy.get('input[name="selling_price"]').type('89000.00')
    })
 })  
