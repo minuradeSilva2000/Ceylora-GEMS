@@ -25,13 +25,13 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('img[alt="Sapphire"]').click()
     cy.url().should('include', 'type=Sapphire')
     cy.contains('button', 'Blue Sapphire').should('be.visible')
-    cy.visit('https://houseofceylora.com/gems/heated-blue-sapphire-17');
+    cy.visit('https://houseofceylora.com/gems/heated-blue-sapphire-32');
     cy.get('h1').should('contain.text', 'Heated Blue Sapphire').should('be.visible')
   })
   it('Verify navigation to the Heated Ruby details page when clicking the Heated Ruby gem image', () => {
     cy.visit('https://houseofceylora.com/gems');
     cy.get('img[alt="Heated Ruby"]').click()
-    cy.url().should('include', '/gems/heated-ruby', { timeout: 10000 })
+    cy.url().should('include', '/gems/heated-ruby-34', { timeout: 10000 })
     cy.get('h1').contains('Heated Ruby').should('be.visible')
     
   })
@@ -60,7 +60,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('.Gems-module-scss-module__OA-ntW__gemstoneGrid').should('be.visible')
     cy.contains('button','Pink').should('be.visible').click()
     cy.get('img[alt="No Treatment Cat\'s Eye"]').click()
-    cy.url().should('include', '/gems/no-treatment-cats-eye-21', { timeout: 10000 })
+    cy.url().should('include', '/gems/no-treatment-cats-eye-31', { timeout: 10000 })
     cy.get('img[class*="galleryMainImg"]').should('be.visible')
     cy.get('img[class*="thumbMedia"]').should('have.length.at.least', 6)
     cy.get('img[class*="galleryMainImg"]').invoke('attr', 'src').then((initialImage) => {
@@ -76,16 +76,16 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     });
   })
   it('Verify users are navigated back to the Gems listing page when clicking the Back icon',()=>{
-    cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-19');
-    cy.url().should('include','/gems/unheated-chrysoberyl-19', { timeout: 10000 })
+    cy.visit('https://houseofceylora.com/gems/unheated-chrysoberyl-35');
+    cy.url().should('include','/gems/unheated-chrysoberyl-35', { timeout: 10000 })
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
     cy.get('a[class="GemDetail-module-scss-module__23wXQa__backLink"]').click()
     cy.url().should('include','/gems',{ timeout: 10000 })
      
   })
   it('Verify the Natural Hexagon Garnet details page is displayed after clicking the gemstone image',()=>{
-     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-20');
-     cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 10000 })
+     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-36');
+     cy.url().should('include','/gems/natural-hexagon-garnet-36',{ timeout: 10000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
   })
   it('Verify authenticated user can add a gemstone to the shopping cart',()=>{
@@ -101,8 +101,8 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
          );
        }
      });
-     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-20');
-     cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
+     cy.visit('https://houseofceylora.com/gems/natural-hexagon-garnet-36');
+     cy.url().should('include','/gems/natural-hexagon-garnet-36',{ timeout: 50000 })
      cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible')
      cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 10000 }).scrollIntoView().click({ force: true })
      cy.get('input[placeholder="you@example.com"]', { timeout: 20000 }).should('be.visible')
@@ -111,7 +111,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('input[placeholder="you@example.com"]').type('ceylorait@gmail.com')
     cy.get('input[placeholder="••••••••"]').type('ceylora@123')
     cy.get('button[class*="AuthModal-module-scss-module__"][class*="__submitBtn"]').click()
-    cy.url().should('include','/gems/natural-hexagon-garnet-20',{ timeout: 50000 })
+    cy.url().should('include','/gems/natural-hexagon-garnet-36',{ timeout: 50000 })
     
      
   })
@@ -140,7 +140,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -170,7 +170,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -183,7 +183,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Mystic Quartz');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -213,7 +213,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -243,7 +243,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -254,7 +254,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Mystic Quartz');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -286,7 +286,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -316,7 +316,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     });
 
     // Go to the product page directly
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer').should('be.visible');
 
     // Click Add To Cart
@@ -329,7 +329,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
 
     // Verify added item is displayed in the cart sidebar
-    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Beryllium Treated Tourmaline');
+    cy.get('.CartDrawer-module-scss-module__sGxPbG__itemName').should('contain.text', 'Mystic Quartz');
 
     // Verify quantity (gems are one-of-a-kind)
     cy.get('.CartDrawer-module-scss-module__sGxPbG__gemBadge').should('contain.text', '1 of 1');
@@ -364,7 +364,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -396,12 +396,12 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((cleanupAuth) => {
       cy.request({
         method: 'PATCH',
-        url: 'https://houseofceylora.com/api/gems/15/unreserve',
+        url: 'https://houseofceylora.com/api/gems/33/unreserve',
         headers: { Authorization: 'Bearer ' + cleanupAuth.idToken },
       });
     });
 
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer', { timeout: 15000 }).should('be.visible');
     cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 30000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
@@ -451,7 +451,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -483,12 +483,12 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((cleanupAuth) => {
       cy.request({
         method: 'PATCH',
-        url: 'https://houseofceylora.com/api/gems/15/unreserve',
+        url: 'https://houseofceylora.com/api/gems/33/unreserve',
         headers: { Authorization: 'Bearer ' + cleanupAuth.idToken },
       });
     });
 
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer', { timeout: 15000 }).should('be.visible');
     cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 30000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
@@ -504,7 +504,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
       });
 
     cy.contains('button','Order').click();
-    cy.url().should('include','/checkout', { timeout: 10000 });
+    cy.url().should('include', '/checkout', { timeout: 10000 });
     cy.get('.Checkout-module-scss-module__nq3FdW__mainContent', { timeout: 15000 }).should('be.visible');
     cy.contains('Order placed successfully.').should('be.visible');
     cy.contains('View My Orders').should('have.attr', 'href', '/account').click();
@@ -542,7 +542,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -574,12 +574,12 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((cleanupAuth) => {
       cy.request({
         method: 'PATCH',
-        url: 'https://houseofceylora.com/api/gems/15/unreserve',
+        url: 'https://houseofceylora.com/api/gems/33/unreserve',
         headers: { Authorization: 'Bearer ' + cleanupAuth.idToken },
       });
     });
 
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer', { timeout: 15000 }).should('be.visible');
     cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 30000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
@@ -633,7 +633,7 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
         appName: '[DEFAULT]',
       };
 
-      cy.visit('https://houseofceylora.com/gems/beryllium-treated-tourmaline-15', {
+      cy.visit('https://houseofceylora.com/gems/mystic-quartz-33', {
         onBeforeLoad(win) {
           win.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
           return new Promise((resolve) => {
@@ -665,12 +665,12 @@ describe('Gems Page - End-to-End Functional Test Suite', () => {
     cy.task('firebaseLogin', { email: 'ceylorait@gmail.com', password: 'ceylora@123' }).then((cleanupAuth) => {
       cy.request({
         method: 'PATCH',
-        url: 'https://houseofceylora.com/api/gems/15/unreserve',
+        url: 'https://houseofceylora.com/api/gems/33/unreserve',
         headers: { Authorization: 'Bearer ' + cleanupAuth.idToken },
       });
     });
 
-    cy.url().should('include', '/gems/beryllium-treated-tourmaline-15');
+    cy.url().should('include', '/gems/mystic-quartz-33');
     cy.get('.GemDetail-module-scss-module__23wXQa__pageContainer', { timeout: 15000 }).should('be.visible');
     cy.get('.GemDetail-module-scss-module__23wXQa__btnCart', { timeout: 30000 }).scrollIntoView().should('contain.text', 'Add To Cart').click();
     cy.get('.CartDrawer-module-scss-module__sGxPbG__drawer', { timeout: 10000 }).should('be.visible');
