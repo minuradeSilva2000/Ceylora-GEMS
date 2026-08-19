@@ -104,7 +104,22 @@ describe('Admin Jewellery inventory - End-to-End Functional Test Suite', () => {
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Jewellery Inventory').click()
      cy.get('.JewelleryInventory-module-scss-module__YRqISa__inventoryContainer').should('be.visible', { timeout: 30000 });
-    
+     cy.wait(3000)
+    })
+      it('Verify admin can navigate to Jewellery Inventory and open the Jewellery View page',()=>{
+
+     cy.visit('https://houseofceylora.com/admin')
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__menuBtn ').click()
+     cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
+     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Jewellery Inventory').click()
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+     cy.get('a[class="JewelleryInventory-module-scss-module__YRqISa__editLink"]').eq(0).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/jewellery/view/7');
+     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
+
+     
     })
 
 })
