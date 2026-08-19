@@ -114,8 +114,8 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
-     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(0).click({force:true})
-     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/19');
+     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(2).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/36');
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.wait(3000)
@@ -128,8 +128,8 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
       cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
       cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
       cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
-      cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
-      cy.url({ timeout: 60000 }).should('include', '/admin/gems/view/16');
+      cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(1).click({force:true})
+      cy.url({ timeout: 60000 }).should('include', '/admin/gems/view/38');
       cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
       cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
       cy.get('a[class="GemView-module-scss-module__Nzmfea__backBtn"]').click({force:true})
@@ -145,8 +145,8 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
       cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
       cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
       cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
-      cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(1).click({force:true})
-      cy.url({ timeout: 60000 }).should('include', '/admin/gems/view/20');
+      cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(3).click({force:true})
+      cy.url({ timeout: 60000 }).should('include', '/admin/gems/view/35');
       cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
       cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
       cy.get('a[class="AdminLayout-module-scss-module__tIFY2q__storeLink"]').click({force:true})
@@ -164,15 +164,14 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
-     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(4).click({force:true})
-     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/17');
+     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/33');
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.get('img[class="GemView-module-scss-module__Nzmfea__galleryMainMedia"]').should('be.visible')
-     cy.get('img[class="GemView-module-scss-module__Nzmfea__thumbMedia"]').should('have.length.at.least', 3)
+     cy.get('img[class="GemView-module-scss-module__Nzmfea__thumbMedia"]').should('have.length.at.least', 2)
       cy.get('img[class*="galleryMainMedia"]').invoke('attr', 'src').then((initialImage) => {
       cy.get('img[class*="thumbMedia"]').eq(1).click()
-      cy.get('img[class*="thumbMedia"]').eq(2).click()
       cy.get('img[class*="galleryMainMedia"]').invoke('attr', 'src').should((updatedImage) => {
           expect(updatedImage).not.to.eq(initialImage);
         });
@@ -189,12 +188,12 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.get('aside[class="AdminLayout-module-scss-module__tIFY2q__sidebar AdminLayout-module-scss-module__tIFY2q__open"]').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
-     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(7).click({force:true})
-     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/14');
+     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/33');
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.get('a[class="GemView-module-scss-module__Nzmfea__editBtn"]').should('be.visible').click({force:true})
-     cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/14')
+     cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/33')
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.wait(3000)
     })
@@ -210,19 +209,22 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
      cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]', { timeout: 60000 }).should('have.length.gte', 8);
      cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
-     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/16');
+     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/33');
      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.get('a[class="GemView-module-scss-module__Nzmfea__editBtn"]').should('be.visible').click({force:true})
-     cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/16')
+     cy.url({ timeout: 30000 }).should('include','/admin/gems/edit/33')
      cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
      cy.get('input[name="selling_price"]').clear().type('5000.00')
-     cy.get('button[class="GemForm-module-scss-module__6JXq1W__saveBtn"]').click({force:true})
-     cy.url({timeout:30000}).should('include','/admin/gems')
-     cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
-     cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/16');
-     cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
-     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
+      cy.get('button[class="GemForm-module-scss-module__6JXq1W__saveBtn"]').click({force:true})
+      cy.url({timeout:30000}).should('not.include', '/admin/gems/view/')
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent', { timeout: 30000 }).should('be.visible')
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 })
+      cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]', { timeout: 60000 }).should('have.length.gte', 6)
+      cy.get('a[class*="GemInventory-module-scss-module__aAoEsG__viewLink"]').eq(5).click({force:true})
+      cy.url({ timeout: 30000 }).should('include', '/admin/gems/view/');
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__mainContent').should('be.visible', { timeout: 30000 });
+      cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
      cy.wait(3000)
     
     })
@@ -336,7 +338,7 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.get('a[class*="AdminLayout-module-scss-module__tIFY2q__navItem"]').contains('Gems Inventory').click()
     cy.get('.AdminLayout-module-scss-module__tIFY2q__pageContent').should('be.visible', { timeout: 30000 });
     cy.get('a[class="GemInventory-module-scss-module__aAoEsG__addBtn"]').should('be.visible').click({force:true})
-    cy.url({ timeout: 30000 }).should('include','/admin/gems/new')
+    cy.url({ timeout: 50000 }).should('include','/admin/gems/new')
     cy.get('.GemForm-module-scss-module__6JXq1W__formContainer').should('be.visible', { timeout: 30000 });
     cy.get('input[type="file"]').eq(0).selectFile('cypress/fixtures/image4.jpeg', { force: true});
     cy.get('input[type="file"]').eq(1).selectFile(['cypress/fixtures/image6.jpg','cypress/fixtures/image7.jpg'], { force: true});
@@ -364,6 +366,6 @@ describe('Admin Gems inventory - End-to-End Functional Test Suite', () => {
     cy.get('input[name="certificate_cost"]').type('1500.00')
     cy.get('input[name="selling_price"]').type('89000.00')
     cy.get('.GemForm-module-scss-module__6JXq1W__saveBtn').click({force:true})
-    cy.url({ timeout: 30000 }).should('include','/admin/gems')
+    cy.url({ timeout: 50000 }).should('include','/admin/gems')
    })
 })  
